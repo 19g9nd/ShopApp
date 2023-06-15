@@ -65,6 +65,45 @@ namespace MyShopApp.Migrations
                     b.ToTable("Statuses");
                 });
 
+            modelBuilder.Entity("MyShopApp.Classes.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("UID")
+                        .HasDefaultValueSql("NEWID()");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Users", t =>
+                        {
+                            t.HasCheckConstraint("CK_Users_Email", "Email like '%@%'");
+
+                            t.HasCheckConstraint("CK_Users_Password", "LEN(Password)>=5");
+                        });
+                });
+
             modelBuilder.Entity("ConsoleApp5.Classes.Product", b =>
                 {
                     b.HasOne("ConsoleApp5.Classes.Status", "Status")

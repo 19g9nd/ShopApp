@@ -1,10 +1,7 @@
 ﻿using ConsoleApp5.Classes;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MyShopApp.Classes;
+using MyShopApp.Config;
 
 namespace ConsoleApp5
 {
@@ -12,6 +9,7 @@ namespace ConsoleApp5
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Status> Statuses { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,7 +21,11 @@ namespace ConsoleApp5
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new UserConfig());
 
         }
+
+
     }
+
 }
