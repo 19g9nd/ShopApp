@@ -59,12 +59,6 @@ namespace MyShopApp.ViewModels
 
         private readonly UserRepositoryDapper userRepository;
 
-        //public LoginVM()
-        //{
-        //    userRepository = new UserRepositoryDapper("Server= localhost; Database=MyShopDb; Integrated Security=True;");
-
-        //    LoginCommand = new RelayCommand(LoginExecute);
-        //}
 
         private void LoginExecute()
         {
@@ -72,24 +66,26 @@ namespace MyShopApp.ViewModels
 
             if (user != null && user.Password == Password)
             {
+
+                //У пользователя есть поле исАдмн если тру то тогда откроется 
                 // Login successful
-                if (user.Login == "Admin")
-                {
-                  //  this.messenger.Send(new NavigationMessage(typeof(//AdminVM)));
-                    // Open admin 
+                //    if (исАдмин тру)
+                //    {
+                //      //  this.messenger.Send(new NavigationMessage(typeof(//AdminVM)));
+                //      
 
-                }
-             
-                else
-                {
-                   // this.messenger.Send(new NavigationMessage(typeof(//UserVM)));
-                    // Open user 
+                    //    }
+
+                    //    else
+                    //    {
+                    //       // this.messenger.Send(new NavigationMessage(typeof(//UserVM)));
+                    //        // Open user 
 
 
-                }
-            }
+                    //  }
+                    }
             else
-            {
+                {
                 // Login failed
                 ErrorMessage = "Invalid login credentials.";
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyShopApp.ViewModels
 {
-    internal class RegisterVM
+    public class RegisterVM
     {
     }
 }
