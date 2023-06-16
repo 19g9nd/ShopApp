@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace MyShopApp.Migrations
 {
     /// <inheritdoc />
-    public partial class changeduserclass : Migration
+    public partial class ChangedUsertable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,7 +28,7 @@ namespace MyShopApp.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UID = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEWID()"),
+                    UID = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     Login = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)

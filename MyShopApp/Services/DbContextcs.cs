@@ -3,17 +3,18 @@ using Microsoft.EntityFrameworkCore;
 using MyShopApp.Classes;
 using MyShopApp.Config;
 
-namespace ConsoleApp5
+namespace MyShopApp.Services
 {
     public class DbContextcs : DbContext
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = $"Server=localhost;Database=MyShopDb;Trusted_Connection=True;TrustServerCertificate=True;";
+            string connectionString = $"Server=localhost;Database=MyShopDb;User Id=admin;Password=admin;TrustServerCertificate=True;";
             optionsBuilder.UseSqlServer(connectionString);
             base.OnConfiguring(optionsBuilder);
         }

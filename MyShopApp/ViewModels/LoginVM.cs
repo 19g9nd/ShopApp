@@ -1,6 +1,7 @@
 ﻿using ConsoleApp5;
 using MyShopApp.Classes;
 using MyShopApp.Commands;
+using MyShopApp.Messager.Messages;
 using MyShopApp.Messager.Services;
 using MyShopApp.Repositories;
 using System;
@@ -13,11 +14,12 @@ using System.Windows.Input;
 
 namespace MyShopApp.ViewModels
 {
-    public class LoginVM : INotifyPropertyChanged
+    public class LoginVM : VMBase
     {
         private string login;
         private string password;
         private string errorMessage;
+        private readonly UserRepository usersRepository;
         private readonly IMessenger messenger;
         public string Login
         {
@@ -28,7 +30,11 @@ namespace MyShopApp.ViewModels
                 OnPropertyChanged(nameof(Login));
             }
         }
-
+        public LoginVM(UserRepository usersRepository, IMessenger messenger)
+        {
+            this.usersRepository = usersRepository;
+            this.messenger = messenger;
+        }
         public string Password
         {
             get { return password; }
@@ -53,12 +59,12 @@ namespace MyShopApp.ViewModels
 
         private readonly UserRepositoryDapper userRepository;
 
-        public LoginVM()
-        {
-            userRepository = new UserRepositoryDapper("Server= localhost; Database=MyShopDb; Integrated Security=True;");
+        //public LoginVM()
+        //{
+        //    userRepository = new UserRepositoryDapper("Server= localhost; Database=MyShopDb; Integrated Security=True;");
 
-            LoginCommand = new RelayCommand(LoginExecute);
-        }
+        //    LoginCommand = new RelayCommand(LoginExecute);
+        //}
 
         private void LoginExecute()
         {
@@ -69,14 +75,16 @@ namespace MyShopApp.ViewModels
                 // Login successful
                 if (user.Login == "Admin")
                 {
+                  //  this.messenger.Send(new NavigationMessage(typeof(//AdminVM)));
                     // Open admin 
-                  
+
                 }
              
                 else
                 {
+                   // this.messenger.Send(new NavigationMessage(typeof(//UserVM)));
                     // Open user 
-               
+
 
                 }
             }

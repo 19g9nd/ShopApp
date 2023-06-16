@@ -1,12 +1,12 @@
 ﻿using SimpleInjector;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using MyShopApp.ViewModels;
+using MyShopApp.Messager.Services;
+using MyShopApp.Views;
+using MyShopApp.Messager.Messages.Base;
+using MyShopApp.Repositories;
+using MyShopApp.Services;
+
 namespace MyShopApp
 {
     
@@ -18,10 +18,33 @@ namespace MyShopApp
         {
             base.OnStartup(e);
 
-            //ConfigureContainer();
+            ConfigureContainer();
 
-            //StartWindow<LoginVM>();
+            StartWindow<LoginVM>();
         }
 
+        private void ConfigureContainer()
+        {
+            ServiceContainer.RegisterSingleton<IMessenger, Messenger>();
+
+            ServiceContainer.RegisterSingleton<MainVM>();
+            ServiceContainer.RegisterSingleton<UserRepository>();
+            ServiceContainer.RegisterSingleton<DbContextcs>();
+
+            ServiceContainer.RegisterSingleton<LoginVM>();
+
+            ServiceContainer.Verify();
+        }
+
+        private void StartWindow<T>() where T : VMBase
+        {
+            var startView = new MainWindow();
+
+            var startViewModel = ServiceContainer.GetInstance<MainVM>();
+            startViewModel.ActiveViewModel = ServiceContainer.GetInstance<T>();
+            startView.DataContext = startViewModel;
+
+            startView.ShowDialog();
+        }
     }
 }

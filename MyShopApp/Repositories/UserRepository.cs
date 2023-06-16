@@ -1,5 +1,5 @@
-﻿using ConsoleApp5;
-using MyShopApp.Classes;
+﻿using MyShopApp.Classes;
+using MyShopApp.Services;
 using System.Collections.Generic;
 using System.Linq;
 

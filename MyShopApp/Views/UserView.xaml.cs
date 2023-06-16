@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace MyShopApp.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for UserWindow.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class UserWindow : UserControl
     {
-        public LoginView()
+        public UserWindow()
         {
             InitializeComponent();
         }

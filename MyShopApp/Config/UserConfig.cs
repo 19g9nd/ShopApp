@@ -8,7 +8,7 @@ namespace MyShopApp.Config
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            //// - Id
+            //ID
             builder
                 .Property(user => user.Id)
                 .HasColumnName("UID")
