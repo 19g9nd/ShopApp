@@ -8,16 +8,16 @@ namespace MyShopApp.Config
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            // - Id
+            //// - Id
             builder
                 .Property(user => user.Id)
                 .HasColumnName("UID")
                 .HasDefaultValueSql("NEWID()");
             //NAME
-            builder.Property<string>(user => user.Name)
+            builder.Property<string>(user => user.Login)
                   .IsRequired()
                   .HasMaxLength(50);
-            builder.HasIndex(user => user.Name)
+            builder.HasIndex(user => user.Login)
       .IsUnique(true);
             //EMAIL
             builder.Property<string>(user => user.Email)

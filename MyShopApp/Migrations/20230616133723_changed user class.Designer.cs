@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MyShopApp.Migrations
 {
     [DbContext(typeof(DbContextcs))]
-    [Migration("20230615073156_Added classes and some checks")]
-    partial class Addedclassesandsomechecks
+    [Migration("20230616133723_changed user class")]
+    partial class changeduserclass
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -81,7 +81,7 @@ namespace MyShopApp.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Login")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -96,7 +96,7 @@ namespace MyShopApp.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("Name")
+                    b.HasIndex("Login")
                         .IsUnique();
 
                     b.ToTable("Users", t =>

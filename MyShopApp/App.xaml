@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:MyShopApp"
              StartupUri="/Views/LoginView.xaml">
     <Application.Resources>
-         
+        <!--<DataTemplate DataType="{x:Type vm:LoginVM}">
+            <:LoginView/>
+            
+        </DataTemplate>-->
     </Application.Resources>
 </Application>

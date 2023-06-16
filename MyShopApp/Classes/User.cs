@@ -1,15 +1,16 @@
-﻿namespace MyShopApp.Classes
+﻿
+namespace MyShopApp.Classes
 {
     public class User
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Login { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
       
-        public User(string name, string password, string email)
+        public User(string login, string password, string email)
         {
-            Name = name;
+            Login = login;
             Password = password;
             Email = email;
         }

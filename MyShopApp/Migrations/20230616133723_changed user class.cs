@@ -5,7 +5,7 @@
 namespace MyShopApp.Migrations
 {
     /// <inheritdoc />
-    public partial class Addedclassesandsomechecks : Migration
+    public partial class changeduserclass : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,7 +28,7 @@ namespace MyShopApp.Migrations
                 columns: table => new
                 {
                     UID = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEWID()"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Login = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
@@ -71,9 +71,9 @@ namespace MyShopApp.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_Name",
+                name: "IX_Users_Login",
                 table: "Users",
-                column: "Name",
+                column: "Login",
                 unique: true);
         }
 
