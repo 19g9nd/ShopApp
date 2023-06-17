@@ -28,6 +28,7 @@ namespace MyShopApp
             ServiceContainer.RegisterSingleton<IMessenger, Messenger>();
 
             ServiceContainer.RegisterSingleton<MainVM>();
+            ServiceContainer.RegisterSingleton<RegisterVM>();
             ServiceContainer.RegisterSingleton<UserRepositoryDapper>();
             ServiceContainer.RegisterSingleton<UserRepository>();
             ServiceContainer.RegisterSingleton<DbContextcs>();

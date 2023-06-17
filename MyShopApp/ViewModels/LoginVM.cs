@@ -66,8 +66,21 @@ namespace MyShopApp.ViewModels
             set => base.PropertyChange(out this.loginCommand, value);
         }
 
+        private MyCommand? registerCommand;
 
-        private void LoginExecute()
+        public MyCommand RegisterCommand
+        {
+            get => this.registerCommand ??= new MyCommand(
+                action: () => RegisterExecute(),
+                predicate: () => true);
+            set => base.PropertyChange(out this.registerCommand, value);
+        }
+        private void RegisterExecute()
+        {
+            this.messenger.Send(new NavigationMessage(typeof(RegisterVM)));
+        }
+
+            private void LoginExecute()
         {
             User user = this.usersRepository.Login(this.Login, this.Password);
 
