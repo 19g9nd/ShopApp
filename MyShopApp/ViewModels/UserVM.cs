@@ -4,16 +4,15 @@ using MyShopApp.Commands;
 using MyShopApp.Messager.Messages;
 using MyShopApp.Messager.Services;
 using MyShopApp.Repositories;
-using System;
+using MyShopApp.Services;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
 
 namespace MyShopApp.ViewModels
 {
     public class UserVM :VMBase
     {
         private User? currentUser;
+        private readonly DbContextcs context = new DbContextcs();
         private readonly IMessenger messenger;
         private readonly ProductRepository productsRepository;
         private ObservableCollection<Product> products { get; set; } = new ObservableCollection<Product>();
@@ -41,21 +40,23 @@ namespace MyShopApp.ViewModels
         public MyCommand LoadCommand
         {
             get => this.loadCommand ??= new MyCommand(
-                action: () => {
+                action: () =>
+                {
                     this.products.Clear();
 
-                    //foreach (var product in productsRepository.Get())
-                    //{
-                    //    this.products.Add(product);
-                    //}
+                    foreach (var product in productsRepository.GetAll())
+                    {
+                        this.products.Add(product);
+                    }
                 },
                 predicate: () => true);
             set => base.PropertyChange(out this.loadCommand, value);
         }
-        public UserVM(IMessenger messenger, ProductRepository productsRepository)
+
+        public UserVM(IMessenger messenger)
         {
             this.messenger = messenger;
-            this.productsRepository = productsRepository;
+            this.productsRepository = new ProductRepository(context);
           
           
             this.messenger.Subscribe<SendLoginedUserMessage>(obj =>

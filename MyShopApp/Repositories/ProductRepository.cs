@@ -12,10 +12,8 @@ namespace MyShopApp.Repositories
     {
 		private readonly DbContextcs context;
 
-		public ProductRepository()
-		{
-			this.context = new DbContextcs();
-		}
+		public ProductRepository(DbContextcs context)=>this.context = context;
+		
 
 		public IEnumerable<Product> Get(int id)
 		{
@@ -23,5 +21,7 @@ namespace MyShopApp.Repositories
 				.Where(p => p.Id == id)
 				.ToList();
 		}
+		public IEnumerable<Product> GetAll() => context.Products.ToList();
+
 	}
 }

@@ -3,17 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MyShopApp.Views"
+             xmlns:local="clr-namespace:MyShopApp.Views" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="Firebrick">
+             d:DesignHeight="300" d:DesignWidth="550" Background="Teal">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Views/pexels-codioful-(formerly-gradienta)-7130498.jpg"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <TextBlock Grid.Row="0" Text="Welcome to MyShopApp!" FontSize="20" HorizontalAlignment="Center" Margin="10"/>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding LoadCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <TextBlock Grid.Row="0" Text="Welcome to MyShopApp!" FontSize="20" HorizontalAlignment="Center" Margin="10" Foreground="#FFA71700"/>
 
         <ListBox Grid.Row="1" ItemsSource="{Binding Products}" Margin="10">
             <ListBox.ItemTemplate>
@@ -29,8 +36,8 @@
         </ListBox>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Button Content="Checkout" Command="{Binding CheckoutCommand}"/>
-            <!--  другие элементы управления или информацию о пользователе -->
+            <Button Content="Checkout" Command="{Binding CheckoutCommand}" BorderBrush="#FFFFAEAE" Background="#FF75C8F5" Foreground="#FF0003DC"/>
+          
         </StackPanel>
     </Grid>
 </UserControl>

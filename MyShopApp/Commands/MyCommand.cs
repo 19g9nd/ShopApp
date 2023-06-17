@@ -12,7 +12,7 @@ namespace MyShopApp.Commands
     {
         private readonly Action action;
         private readonly Func<bool> predicate;
-
+  
         public event EventHandler? CanExecuteChanged
         {
             add => CommandManager.RequerySuggested += value;
@@ -24,6 +24,7 @@ namespace MyShopApp.Commands
             this.action = action;
             this.predicate = predicate;
         }
+
 
         public bool CanExecute(object? parameter)
         {

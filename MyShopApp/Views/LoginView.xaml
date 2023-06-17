@@ -3,8 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" Background="DarkSalmon" Height="275" Width="550">
+             mc:Ignorable="d"  Height="300" Width="550">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Views/jeremy-bishop--FKhxUvwImw-unsplash.jpg"/>
+        </Grid.Background>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
