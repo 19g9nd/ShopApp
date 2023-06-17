@@ -30,7 +30,7 @@ namespace MyShopApp.Repositories
 
         public void InsertUser(User user)
         {
-            string sql = "INSERT INTO Users (Login, Password) VALUES (@Login, @Password)";
+            string sql = "INSERT INTO Users (Login, Password,Email,isAdmin) VALUES (@Login, @Password,@Email,@isAdmin)";
             Execute(sql, user);
         }
 

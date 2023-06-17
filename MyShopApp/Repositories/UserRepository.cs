@@ -9,10 +9,13 @@ namespace MyShopApp.Repositories
     public class UserRepository
     {
         private DbContextcs context;
-        public UserRepository(DbContextcs context) => this.context = context;
-        public void Add(User newUser)
+        public UserRepository( )
         {
-            context.Users.Add(newUser);
+            this.context = new DbContextcs();
+        }
+        public void Add(User user)
+        {
+            context.Users.Add(user);
             context.SaveChanges();
         }
         public void Update(User newUser)

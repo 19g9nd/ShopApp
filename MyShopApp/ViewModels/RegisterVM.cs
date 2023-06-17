@@ -2,15 +2,17 @@
 using MyShopApp.Commands;
 using MyShopApp.Messager.Messages;
 using MyShopApp.Messager.Services;
+using MyShopApp.Repositories;
 using MyShopApp.Services;
 using System.Linq;
-using System.Windows.Input;
 
 namespace MyShopApp.ViewModels
 {
     public class RegisterVM :VMBase
     {
+        private readonly UserRepository usersRepository;
         private readonly IMessenger messenger;
+        private readonly DbContextcs context;
         private string login;
         public string Login
         {
@@ -32,6 +34,16 @@ namespace MyShopApp.ViewModels
                 OnPropertyChanged();
             }
         }
+        private string email;
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                email = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string errorMessage;
         public string ErrorMessage
@@ -44,36 +56,35 @@ namespace MyShopApp.ViewModels
             }
         }
 
-        public ICommand RegisterCommand { get; }
+        private MyCommand? registerCommand;
 
-        public RegisterVM(IMessenger messenger)
+        public MyCommand RegisterCommand
         {
+            get => this.registerCommand ??= new MyCommand(
+                action: () => RegisterExecute(),
+                predicate: () => !string.IsNullOrWhiteSpace(this.Login) && !string.IsNullOrWhiteSpace(this.Password) && !string.IsNullOrWhiteSpace(this.Email));
+            set => base.PropertyChange(out this.registerCommand, value);
+        }
+        public RegisterVM(IMessenger messenger,UserRepository usersRepository)
+        {
+            this.usersRepository = usersRepository;
             this.messenger = messenger;
-            RegisterCommand = new RelayCommand(Register, CanRegister);
+           
         }
 
-        private bool CanRegister()
-        {
-            // Implement validation logic
-            return !string.IsNullOrEmpty(Login) &&
-                   !string.IsNullOrEmpty(Password);
-        }
 
-        private void Register()
+        private void RegisterExecute()
         {
-            using (var context = new DbContextcs())
+            if (context.Users.Any(u => u.Login == Login))
             {
-                if (context.Users.Any(u => u.Login == Login))
-                {
-                    ErrorMessage = "Username already exists";
-                    return;
-                }
-
-                var user = new User { Login = login, Password = Password };
-                context.Users.Add(user);
-                context.SaveChanges();
-                this.messenger.Send(new NavigationMessage(typeof(LoginVM)));
+                ErrorMessage = "Username already exists";
+                return;
             }
+
+            var user = new User(Login, Password, Email, false);
+            this.usersRepository.Add(user);
+
+            this.messenger.Send(new NavigationMessage(typeof(LoginVM)));
         }
     }
 }
