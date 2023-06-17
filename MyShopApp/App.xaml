@@ -20,5 +20,10 @@
             <v:UserView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:AdminVM}">
+            <v:AdminView/>
+        </DataTemplate>
+        
+
     </Application.Resources>
 </Application>

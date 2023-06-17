@@ -36,7 +36,7 @@
         </ListBox>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Button Content="Checkout" Command="{Binding CheckoutCommand}" BorderBrush="#FFFFAEAE" Background="#FF75C8F5" Foreground="#FF0003DC"/>
+            <Button Content="Checkout" Command="{Binding CheckoutCommand}" BorderBrush="#FF050663" Background="#FF75C8F5" Foreground="#FF0003DC" FontSize="16"/>
           
         </StackPanel>
     </Grid>

@@ -90,9 +90,9 @@ namespace MyShopApp.ViewModels
 
                 if (user.isAdmin == true)
                 {
-                    //this.messenger.Send(new NavigationMessage(typeof(//)));
+                    this.messenger.Send(new NavigationMessage(typeof(AdminVM)));
 
-                    ErrorMessage = "admin login";
+                    
                 }
                 else
                 {
