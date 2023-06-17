@@ -96,10 +96,10 @@ namespace MyShopApp.ViewModels
                 }
                 else
                 {
-                    // this.messenger.Send(new NavigationMessage(typeof(//UserVM)));
+                    this.messenger.Send(new NavigationMessage(typeof(UserVM)));
                     // Open user 
 
-                    ErrorMessage = "user login";
+                   
                 }
             }
             else

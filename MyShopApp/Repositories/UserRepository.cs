@@ -10,10 +10,8 @@ namespace MyShopApp.Repositories
     public class UserRepository
     {
         private DbContextcs context;
-        public UserRepository( )
-        {
-            this.context = new DbContextcs();
-        }
+        public UserRepository(DbContextcs context)=>this.context = context;
+   
         public void Add(User user)
         {
            
@@ -34,6 +32,7 @@ namespace MyShopApp.Repositories
             context.SaveChanges();
         }
         public IEnumerable<User> GetAll() => context.Users.ToList();
+
 
     }
 }

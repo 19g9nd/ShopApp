@@ -19,7 +19,22 @@ namespace MyShopApp.Classes
         }
         public User()
         {
+            this.Login = "Unknown";
+            this.Password = "Unknown";
+            this.Email = "Unknown";
+            this.isAdmin = false;
+        }
 
+        public override string ToString()
+        {
+            var maskedPass = "";
+
+                foreach (var item in this.Password)
+            {
+                maskedPass += "*";
+            }
+
+            return $"#[{this.Id} {maskedPass} {this.Email} {this.isAdmin}]";
         }
     }
 

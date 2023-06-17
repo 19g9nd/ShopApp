@@ -1,18 +1,28 @@
 ﻿using ConsoleApp5.Classes;
+using MyShopApp.Classes;
 using MyShopApp.Commands;
+using MyShopApp.Messager.Messages;
+using MyShopApp.Messager.Services;
+using MyShopApp.Repositories;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MyShopApp.ViewModels
 {
     public class UserVM :VMBase
     {
-        private ObservableCollection<Product> products;
+        private User? currentUser;
+        private readonly IMessenger messenger;
+        private readonly ProductRepository productsRepository;
+        private ObservableCollection<Product> products { get; set; } = new ObservableCollection<Product>();
+
+        public User? CurrentUser
+        {
+            get { return currentUser; }
+            set => base.PropertyChange(out currentUser, value);
+        }
 
         public ObservableCollection<Product> Products
         {
@@ -24,25 +34,40 @@ namespace MyShopApp.ViewModels
             }
         }
 
-        public ICommand AddToCartCommand { get; set; }
-        public ICommand CheckoutCommand { get; set; }
+        private MyCommand? AddToCartCommand { get; set; }
+        private MyCommand? CheckoutCommand { get; set; }
+        private MyCommand? loadCommand;
 
-        public UserVM()
+        public MyCommand LoadCommand
         {
-            // Инициализация команд
+            get => this.loadCommand ??= new MyCommand(
+                action: () => {
+                    this.products.Clear();
+
+                    //foreach (var product in productsRepository.Get())
+                    //{
+                    //    this.products.Add(product);
+                    //}
+                },
+                predicate: () => true);
+            set => base.PropertyChange(out this.loadCommand, value);
+        }
+        public UserVM(IMessenger messenger, ProductRepository productsRepository)
+        {
+            this.messenger = messenger;
+            this.productsRepository = productsRepository;
           
-            // Загрузка товаров из базы данных или другого источника
-            LoadProducts();
+          
+            this.messenger.Subscribe<SendLoginedUserMessage>(obj =>
+            {
+                if (obj is SendLoginedUserMessage message)
+                {
+                    this.CurrentUser = message.LoginedUser;
+                }
+            });
         }
 
-        private void LoadProducts()
-        {
-            // Здесь происходит загрузка товаров из базы данных или другого источника данных
-            // Инициализировать свойство Products, чтобы отобразить список товаров в представлении
-            // Например:
-           // Products = new ObservableCollection<Product>(GetProductsFromDatabase());
-        }
-
+       
         private void AddToCartExecute(object parameter)
         {
             // Логика добавления товара в корзину

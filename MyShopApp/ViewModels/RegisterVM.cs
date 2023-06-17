@@ -13,7 +13,7 @@ namespace MyShopApp.ViewModels
     {
         private readonly UserRepository usersRepository;
         private readonly IMessenger messenger;
-        private readonly DbContextcs context;
+        private readonly DbContextcs context = new DbContextcs();
         private string login;
         public string Login
         {
@@ -66,9 +66,9 @@ namespace MyShopApp.ViewModels
                 predicate: () => !string.IsNullOrWhiteSpace(this.Login) && !string.IsNullOrWhiteSpace(this.Password) && !string.IsNullOrWhiteSpace(this.Email));
             set => base.PropertyChange(out this.registerCommand, value);
         }
-        public RegisterVM(IMessenger messenger,UserRepository usersRepository)
+        public RegisterVM(IMessenger messenger)
         {
-            this.usersRepository = usersRepository;
+            this.usersRepository = new UserRepository(context);
             this.messenger = messenger;
            
         }
@@ -76,12 +76,12 @@ namespace MyShopApp.ViewModels
 
         private void RegisterExecute()
         {
-            //if (context.Users.Any(u => u.Login == Login))
-            //{
-            //    ErrorMessage = "Username already exists";
-            //    return;
-            //}
-            //ошибка context пустой
+            if (context.Users.Any(u => u.Login == Login))
+            {
+                ErrorMessage = "Username already exists";
+                return;
+            }
+            
             try
             {
             var user = new User(Login, Password, Email, false);
