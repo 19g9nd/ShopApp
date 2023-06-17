@@ -1,5 +1,6 @@
 ﻿using MyShopApp.Classes;
 using MyShopApp.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,8 +16,12 @@ namespace MyShopApp.Repositories
         }
         public void Add(User user)
         {
+           
+            
             context.Users.Add(user);
             context.SaveChanges();
+            
+           
         }
         public void Update(User newUser)
         {

@@ -31,8 +31,9 @@ namespace MyShopApp
             ServiceContainer.RegisterSingleton<RegisterVM>();
             ServiceContainer.RegisterSingleton<UserRepositoryDapper>();
             ServiceContainer.RegisterSingleton<UserRepository>();
+            ServiceContainer.RegisterSingleton<ProductRepository>();
             ServiceContainer.RegisterSingleton<DbContextcs>();
-
+            ServiceContainer.RegisterSingleton<UserVM>();
             ServiceContainer.RegisterSingleton<LoginVM>();
             
             ServiceContainer.Verify();
