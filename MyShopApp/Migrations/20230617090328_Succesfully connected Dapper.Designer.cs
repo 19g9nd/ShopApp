@@ -12,8 +12,8 @@ using MyShopApp.Services;
 namespace MyShopApp.Migrations
 {
     [DbContext(typeof(DbContextcs))]
-    [Migration("20230616173502_add isAdmin")]
-    partial class addisAdmin
+    [Migration("20230617090328_Succesfully connected Dapper")]
+    partial class SuccesfullyconnectedDapper
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -124,11 +124,11 @@ namespace MyShopApp.Migrations
 
             modelBuilder.Entity("MyShopApp.Classes.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()

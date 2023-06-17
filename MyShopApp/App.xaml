@@ -11,8 +11,8 @@
             <v:LoginView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type vm:LoginVM}">
-            <v:LoginView/>
+        <DataTemplate DataType="{x:Type vm:RegisterVM}">
+            <v:RegisterView/>
         </DataTemplate>
 
     </Application.Resources>

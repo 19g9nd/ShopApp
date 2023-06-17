@@ -8,11 +8,6 @@ namespace MyShopApp.Config
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            //ID
-            builder
-                .Property(user => user.Id)
-                .HasColumnName("UID")
-                .HasDefaultValueSql("NEWID()");
             //NAME
             builder.Property<string>(user => user.Login)
                   .IsRequired()

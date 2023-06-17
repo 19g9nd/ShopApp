@@ -19,7 +19,7 @@ namespace MyShopApp.ViewModels
         private string login;
         private string password;
         private string errorMessage;
-        private readonly UserRepository usersRepository;
+        private readonly UserRepositoryDapper usersRepository;
         private readonly IMessenger messenger;
         public string Login
         {
@@ -30,7 +30,7 @@ namespace MyShopApp.ViewModels
                 OnPropertyChanged(nameof(Login));
             }
         }
-        public LoginVM(UserRepository usersRepository, IMessenger messenger)
+        public LoginVM(UserRepositoryDapper usersRepository, IMessenger messenger)
         {
             this.usersRepository = usersRepository;
             this.messenger = messenger;
@@ -55,35 +55,40 @@ namespace MyShopApp.ViewModels
             }
         }
 
-        public ICommand LoginCommand { get; }
 
-        private readonly UserRepositoryDapper userRepository;
+        private MyCommand? loginCommand;
+
+        public MyCommand LoginCommand
+        {
+            get => this.loginCommand ??= new MyCommand(
+                action: () => LoginExecute(),
+                predicate: () => !string.IsNullOrWhiteSpace(this.Login) && !string.IsNullOrWhiteSpace(this.Password));
+            set => base.PropertyChange(out this.loginCommand, value);
+        }
 
 
         private void LoginExecute()
         {
-            User user = userRepository.GetUserByLogin(Login);
+            User user = this.usersRepository.Login(this.Login, this.Password);
 
             if (user != null && user.Password == Password)
             {
 
-                //У пользователя есть поле исАдмн если тру то тогда откроется 
-                // Login successful
-                //    if (исАдмин тру)
-                //    {
-                //      //  this.messenger.Send(new NavigationMessage(typeof(//AdminVM)));
-                //      
 
-                    //    }
+                if (user.isAdmin == true)
+                {
+                    //this.messenger.Send(new NavigationMessage(typeof(//)));
 
-                    //    else
-                    //    {
-                    //       // this.messenger.Send(new NavigationMessage(typeof(//UserVM)));
-                    //        // Open user 
+                    ErrorMessage = "admin login";
+                }
+                else
+                {
+                    // this.messenger.Send(new NavigationMessage(typeof(//UserVM)));
+                    // Open user 
 
-
-                    //  }
-                    }
+                    ErrorMessage = "user login";
+                }
+            }
             else
                 {
                 // Login failed
@@ -91,12 +96,5 @@ namespace MyShopApp.ViewModels
             }
         }
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

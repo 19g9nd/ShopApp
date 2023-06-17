@@ -14,9 +14,10 @@ namespace MyShopApp.Services
         public DbSet<OrderItem> OrderItems { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = $"Server=localhost;Database=MyShopDb;User Id=admin;Password=admin;TrustServerCertificate=True;";
+            string connectionString = $"Server=localhost;Database=MyShopDb;Trusted_Connection=True;TrustServerCertificate=True;";
             optionsBuilder.UseSqlServer(connectionString);
             base.OnConfiguring(optionsBuilder);
+           
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -26,5 +26,6 @@ namespace MyShopApp.Repositories
             context.SaveChanges();
         }
         public IEnumerable<User> GetAll() => context.Users.ToList();
+
     }
 }
