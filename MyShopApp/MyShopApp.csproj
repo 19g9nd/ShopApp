@@ -11,6 +11,7 @@
     <None Remove="Resources\jeremy-bishop--FKhxUvwImw-unsplash.jpg" />
     <None Remove="Views\jeremy-bishop--FKhxUvwImw-unsplash.jpg" />
     <None Remove="Views\pexels-codioful-%28formerly-gradienta%29-7130498.jpg" />
+    <None Remove="Views\pexels-ivan-babydov-7787753.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,7 @@
   <ItemGroup>
     <Resource Include="Views\jeremy-bishop--FKhxUvwImw-unsplash.jpg" />
     <Resource Include="Views\pexels-codioful-(formerly-gradienta)-7130498.jpg" />
+    <Resource Include="Views\pexels-ivan-babydov-7787753.jpg" />
   </ItemGroup>
 
 </Project>

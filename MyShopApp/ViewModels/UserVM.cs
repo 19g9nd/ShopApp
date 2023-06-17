@@ -71,26 +71,38 @@ namespace MyShopApp.ViewModels
        
         private void AddToCartExecute(object parameter)
         {
-            // Логика добавления товара в корзину
+            Product selectedProduct = parameter as Product;
+            if (selectedProduct != null)
+            {
+                // Логика добавления товара в корзину
+                // создание объекта OrderItem и добавление его в коллекцию корзины
+                // OrderItem orderItem = new OrderItem(selectedProduct);
+                // Order.Add(orderItem);
+            }
         }
 
         private bool CanAddToCartExecute(object parameter)
         {
-            // Проверка, может ли быть выполнена команда AddToCartCommand
-            // Например, проверка выбранного товара или наличия товара в наличии
-            return true;
+
+            Product selectedProduct = parameter as Product;
+            if (selectedProduct != null)
+            {
+                // Проверка, может ли быть выполнена команда AddToCartCommand
+                // Например, проверка наличия товара в наличии или другие условия
+                // return selectedProduct.Availability > 0;
+            }
+            return false;
         }
 
         private void CheckoutExecute(object parameter)
         {
             // Логика оформления заказа
-        }
+            // Например, создание объекта Order, передача данных о корзине и текущем пользователе
+            // Order newOrder = new Order(Cart, CurrentUser);
+            // OrderService.PlaceOrder(newOrder);
 
-        private bool CanCheckoutExecute(object parameter)
-        {
-            // Проверка, может ли быть выполнена команда CheckoutCommand
-            // Например, проверка, есть ли товары в корзине
-            return true;
+            // Очистка корзины после оформления заказа
+            // Order.Clear();
         }
 
     }

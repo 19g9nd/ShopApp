@@ -6,21 +6,24 @@
              xmlns:local="clr-namespace:MyShopApp.Views"
              mc:Ignorable="d" Background="RoyalBlue" Height="300" Width="550">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Views/pexels-ivan-babydov-7787753.jpg"/>
+        </Grid.Background>
         <StackPanel Margin="20">
-            <TextBlock Text="Register" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+            <TextBlock Text="Register" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,20" Foreground="White"/>
             <DockPanel>
-                <TextBlock Text="Login: " VerticalAlignment="Center"/>
+                <TextBlock Text="Login: " VerticalAlignment="Center" Foreground="White" FontSize="18"/>
                 <TextBox Text="{Binding Login}" Margin="10"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Password: " VerticalAlignment="Center"/>
+                <TextBlock Text="Password: " VerticalAlignment="Center" Foreground="#FFFFEDED" FontSize="18"/>
                 <TextBox Text="{Binding Password}" Margin="10"/>
             </DockPanel>
             <DockPanel>
-                <Label Content="Email: " VerticalAlignment="Center" Foreground="#FF1B165A" FontSize="12"/>
+                <Label Content="Email: " VerticalAlignment="Center" Foreground="White" FontSize="18"/>
                 <TextBox Text="{Binding Email}" Margin="10"/>
             </DockPanel>
-            <Button Content="Register" Command="{Binding RegisterCommand}" Margin="10"/>
+            <Button Content="Register" Command="{Binding RegisterCommand}" Margin="10" FontSize="18" Background="#FF7769B7" Foreground="#FFF0F5C2"/>
             <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" HorizontalAlignment="Center" Margin="10"/>
         </StackPanel>
     </Grid>
