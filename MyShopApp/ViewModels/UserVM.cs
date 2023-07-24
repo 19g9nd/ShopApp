@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using ConsoleApp5.Classes;
 using MyShopApp.Classes;
@@ -130,15 +131,11 @@ namespace MyShopApp.ViewModels
                     // Создание нового экземпляра окна оформления заказа
                             var CheckOutWindow = new CheckoutView();
                     // Создание нового экземпляра класса представления для окна оформления заказа
-                            var CheckOutViewModel = new OrderVM();
+                            var CheckOutViewModel = new OrderVM(CartProducts.ToList());
                     // Установка представления данных окна оформления заказа
                             CheckOutWindow.DataContext = CheckOutViewModel;
                     // Открытие окна оформления заказа
                             CheckOutWindow.ShowDialog();
-
-                   
-                            //CartProducts.Clear();
-                            //TotalOrderPrice = 0; // Сброс суммы заказа
                         }
                     },
                     predicate: () => CartProducts.Count > 0

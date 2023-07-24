@@ -74,21 +74,20 @@ namespace MyShopApp.ViewModels
         }
 
         // Constructor
-        public OrderVM()
+        public OrderVM(List<Product> cartProducts)
         {
             order = new Order();
-            cartProducts = new List<Product>();
-            totalOrderPrice = 0;
+            this.cartProducts = cartProducts;
+            totalOrderPrice = cartProducts.Sum(product => product.Price);
         }
-
         public void AddProductToOrder(Product product)
         {
-            // logic to add a product to the order
+           
         }
 
         public void RemoveProductFromOrder(Product product)
         {
-            //logic to remove a product from the order
+           
         }
 
         public void CalculateTotalOrderPrice()
@@ -98,7 +97,7 @@ namespace MyShopApp.ViewModels
 
         public bool PlaceOrder()
         {
-            // logic to place the order
+         
             return true;
         }
     }
