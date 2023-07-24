@@ -22,7 +22,7 @@
         </i:Interaction.Triggers>
         <TextBlock Grid.Row="0" Text="Welcome to MyShopApp!" FontSize="20" HorizontalAlignment="Center" Margin="10" Foreground="#FFA71700"/>
 
-        <ListBox Grid.Row="1" ItemsSource="{Binding Products}" Margin="10">
+        <ListBox Grid.Row="1" ItemsSource="{Binding Products}"  SelectedItem="{Binding SelectedProduct}" Margin="10">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>

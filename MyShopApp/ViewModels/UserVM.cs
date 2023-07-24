@@ -8,6 +8,7 @@ using MyShopApp.Messager.Messages;
 using MyShopApp.Messager.Services;
 using MyShopApp.Repositories;
 using MyShopApp.Services;
+using MyShopApp.Views;
 
 namespace MyShopApp.ViewModels
 {
@@ -126,18 +127,25 @@ namespace MyShopApp.ViewModels
                     {
                         if (CartProducts.Count > 0)
                         {
-                            // Логика для оформления заказа
-                            // ...
+                    // Создание нового экземпляра окна оформления заказа
+                            var CheckOutWindow = new CheckoutView();
+                    // Создание нового экземпляра класса представления для окна оформления заказа
+                            var CheckOutViewModel = new OrderVM();
+                    // Установка представления данных окна оформления заказа
+                            CheckOutWindow.DataContext = CheckOutViewModel;
+                    // Открытие окна оформления заказа
+                            CheckOutWindow.ShowDialog();
 
-                            // После успешного оформления заказа, очистите корзину пользователя
-                            CartProducts.Clear();
-                            TotalOrderPrice = 0; // Сброс суммы заказа
+                   
+                            //CartProducts.Clear();
+                            //TotalOrderPrice = 0; // Сброс суммы заказа
                         }
                     },
                     predicate: () => CartProducts.Count > 0
                 );
             }
         }
+
 
         public ObservableCollection<Product> CartProducts
         {

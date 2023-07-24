@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleApp5.Classes;
+using System;
 using System.Collections.Generic;
 
 namespace MyShopApp.Classes
@@ -10,7 +11,7 @@ namespace MyShopApp.Classes
         public DateTime OrderDate { get; set; }
         public string? Status { get; set; }
         public decimal TotalPrice { get; set; }
-        public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public List<Product> OrderItems { get; set; } = new List<Product>();
 
     }
 }

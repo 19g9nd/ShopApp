@@ -10,8 +10,9 @@ namespace MyShopApp.ViewModels
     public class OrderVM : VMBase
     {
         private readonly Order order;
-        public  List<Product> cartProducts;
-        public decimal totalOrderPrice;
+        private List<Product> cartProducts;
+        private decimal totalOrderPrice;
+
         public int UserId
         {
             get => order.UserId;
@@ -52,36 +53,53 @@ namespace MyShopApp.ViewModels
             }
         }
 
-        public List<OrderItem> OrderItems => order.OrderItems;
+        public ObservableCollection<Product> CartProducts
+        {
+            get { return new ObservableCollection<Product>(cartProducts); }
+            set
+            {
+                cartProducts = new List<Product>(value);
+                CalculateTotalOrderPrice();
+            }
+        }
+
+        public decimal TotalOrderPrice
+        {
+            get => totalOrderPrice;
+            set
+            {
+                totalOrderPrice = value;
+                OnPropertyChanged(nameof(TotalOrderPrice));
+            }
+        }
 
         // Constructor
         public OrderVM()
         {
             order = new Order();
-            cartProducts = new  List<Product>();
+            cartProducts = new List<Product>();
             totalOrderPrice = 0;
         }
 
         public void AddProductToOrder(Product product)
         {
-            // Проверка добавлен ли продукт уже в заказ
-            if (!OrderItems.Any(item => item.ProductId == product.Id))
-            {
-                // Создайте новый объект OrderItem и добавьте его в заказ
-                var orderItem = new OrderItem
-                {
-                    ProductId = product.Id,
-                    Product = product,
-                    Order = order
-                };
-                OrderItems.Add(orderItem);
-
-                // Обновите общую стоимость заказа
-                TotalPrice += product.Price; // Предполагается, что у класса Product есть свойство Price для расчета общей стоимости заказа
-            }
+            // logic to add a product to the order
         }
 
+        public void RemoveProductFromOrder(Product product)
+        {
+            //logic to remove a product from the order
+        }
 
-      
+        public void CalculateTotalOrderPrice()
+        {
+            TotalOrderPrice = CartProducts.Sum(product => product.Price);
+        }
+
+        public bool PlaceOrder()
+        {
+            // logic to place the order
+            return true;
+        }
     }
 }

@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyShopApp.Views"
         mc:Ignorable="d"
-        Title="CheckoutView" Height="450" Width="800">
+       Title="Checkout" Height="300" Width="400">
     <Grid>
-        
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF8AECFF"/>
+                <GradientStop Color="#FF5E36ED" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Checkout" FontSize="20" HorizontalAlignment="Center" Margin="10" Foreground="#FF1C692B" />
+
+        <!-- Отображение выбранных товаров в корзине -->
+        <ListBox Grid.Row="1" ItemsSource="{Binding CartProducts}" Margin="10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Description}" FontSize="14" Margin="0,5"/>
+                        <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="14" Margin="0,5"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- Общая сумма заказа -->
+        <TextBlock Grid.Row="2" Text="{Binding TotalOrderPrice, StringFormat='Total: {0:C}'}" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Margin="257,10,0,9" Width="99" />
+
+        <!-- Кнопка оформления заказа -->
+        <Button Grid.Row="2" Content="Place Order" Command="{Binding PlaceOrderCommand}" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFAC81FB" Foreground="White" BorderBrush="#FF8F0F96" />
     </Grid>
 </Window>
