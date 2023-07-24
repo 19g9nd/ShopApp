@@ -1,6 +1,4 @@
-﻿using MyShopApp.Messager.Messages.Base;
-using MyShopApp.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,23 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MyShopApp.Views
 {
     /// <summary>
-    /// Interaction logic for UserView.xaml
+    /// Interaction logic for CheckoutView.xaml
     /// </summary>
-    public partial class UserView : UserControl
+    public partial class CheckoutView : Window
     {
-        public UserView()
+        public CheckoutView()
         {
             InitializeComponent();
-            var message = new Messenger();
-            this.DataContext = new UserVM(message);
         }
-
-      
     }
 }

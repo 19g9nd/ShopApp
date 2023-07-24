@@ -10,12 +10,15 @@ Insert into Statuses (Name)
 values ('unknown');
 
 
-insert into Products (Name,Description,StatusId)
-values ('Iphone 14','apple phone',1)
+
+insert into Products (Name,Description,Quantity,StatusId,Price)
+values ('Iphone 10','apple phone',20,1,150)
 
 select * from Users
 
-select * from Statuses
 
-select p.Id,p.Name,p.Description,p.StatusId,s.Name from Products p
+select * from Statuses
+select * from Products
+
+select p.Id,p.Name,p.Description,p.StatusId,p.Quantity, s.Name from Products p
 join Statuses s on s.Id = p.StatusId;

@@ -82,7 +82,7 @@ namespace MyShopApp.ViewModels
 
             private void LoginExecute()
         {
-            User user = this.usersRepository.Login(this.Login, this.Password);
+            User user = this.usersRepository.Login(this.Login, this.Password,1000);
 
             if (user != null && user.Password == Password)
             {

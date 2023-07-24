@@ -36,6 +36,8 @@ namespace MyShopApp
             ServiceContainer.RegisterSingleton<UserVM>();
             ServiceContainer.RegisterSingleton<LoginVM>();
             ServiceContainer.RegisterSingleton<AdminVM>();
+            ServiceContainer.RegisterSingleton<AddProductVM>();
+            ServiceContainer.RegisterSingleton<OrderVM>();
             ServiceContainer.Verify();
         }
 

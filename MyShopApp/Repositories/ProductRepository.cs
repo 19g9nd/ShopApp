@@ -1,4 +1,5 @@
 ﻿using ConsoleApp5.Classes;
+using Microsoft.EntityFrameworkCore;
 using MyShopApp.Services;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,32 @@ namespace MyShopApp.Repositories
 				.Where(p => p.Id == id)
 				.ToList();
 		}
-		public IEnumerable<Product> GetAll() => context.Products.ToList();
+
+		public void Add(Product product)
+		{
+
+
+			context.Products.Add(product);
+			context.SaveChanges();
+
+
+		}
+
+		public void Update(Product newProduct)
+		{
+			context.Products.Update(newProduct);
+			context.SaveChanges();
+		}
+		public void Delete(int id)
+		{
+			context.Products.Remove(context.Products.Find(id));
+			context.SaveChanges();
+		}
+		public List<Product> GetAll()
+		{
+			return context.Products.Include(p => p.Status).ToList();
+		}
+
 
 	}
 }

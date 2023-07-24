@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace MyShopApp.Migrations
+namespace changed
 {
     /// <inheritdoc />
-    public partial class ChangedRepositories : Migration
+    public partial class vm : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

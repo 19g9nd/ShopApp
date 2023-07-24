@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace MyShopApp.Migrations
+namespace changed
 {
     /// <inheritdoc />
-    public partial class SuccesfullyconnectedDapper : Migration
+    public partial class prod : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -9,11 +9,11 @@ using MyShopApp.Services;
 
 #nullable disable
 
-namespace MyShopApp.Migrations
+namespace changes
 {
     [DbContext(typeof(DbContextcs))]
-    [Migration("20230617170329_New datatemplate")]
-    partial class Newdatatemplate
+    [Migration("20230723162153_added")]
+    partial class added
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,12 @@ namespace MyShopApp.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");
@@ -129,6 +135,9 @@ namespace MyShopApp.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal?>("Balance")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Email")
                         .IsRequired()

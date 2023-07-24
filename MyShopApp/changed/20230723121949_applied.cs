@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace MyShopApp.Migrations
+namespace changes
 {
     /// <inheritdoc />
-    public partial class Newdatatemplate : Migration
+    public partial class applied : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -10,6 +10,7 @@ namespace MyShopApp.Classes
         public string Password { get; set; }
         public string Email { get; set; }
       public bool isAdmin { get; set; }
+        public decimal? Balance { get; set; }
         public User(string login, string password, string email, bool isAdmin)
         {
             Login = login;

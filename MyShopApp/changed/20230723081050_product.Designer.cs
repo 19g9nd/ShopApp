@@ -9,11 +9,11 @@ using MyShopApp.Services;
 
 #nullable disable
 
-namespace MyShopApp.Migrations
+namespace changed
 {
     [DbContext(typeof(DbContextcs))]
-    [Migration("20230617195006_Added admin panel")]
-    partial class Addedadminpanel
+    [Migration("20230723081050_product")]
+    partial class product
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace MyShopApp.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");

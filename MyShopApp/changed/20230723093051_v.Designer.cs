@@ -9,11 +9,11 @@ using MyShopApp.Services;
 
 #nullable disable
 
-namespace MyShopApp.Migrations
+namespace changed
 {
     [DbContext(typeof(DbContextcs))]
-    [Migration("20230617184000_Changed Repositories")]
-    partial class ChangedRepositories
+    [Migration("20230723093051_v")]
+    partial class v
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace MyShopApp.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");

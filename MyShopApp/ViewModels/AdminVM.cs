@@ -5,6 +5,7 @@ using MyShopApp.Messager.Messages;
 using MyShopApp.Messager.Services;
 using MyShopApp.Repositories;
 using MyShopApp.Services;
+using MyShopApp.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -47,6 +48,7 @@ namespace MyShopApp.ViewModels
                     foreach (var product in productsRepository.GetAll())
                     {
                         this.products.Add(product);
+                      
                     }
                 },
                 predicate: () => true);
@@ -60,22 +62,35 @@ namespace MyShopApp.ViewModels
             get { return selectedProduct; }
             set => base.PropertyChange(out selectedProduct, value);
         }
-        private MyCommand? addProductCommand;
-        public ICommand AddProductCommand
+
+        private MyCommand? openAddProductWindowCommand;
+
+        public ICommand OpenAddProductWindowCommand
         {
             get
             {
-                return addProductCommand ??= new MyCommand(
+                return openAddProductWindowCommand ??= new MyCommand(
                     action: () =>
                     {
-                        // Создание нового продукта и добавление его в коллекцию
-                        var newProduct = new Product();
-                        products.Add(newProduct);
-                        SelectedProduct = newProduct;
+                // Создание нового экземпляра окна добавления товара
+                        var addProductWindow = new AddProductView();
+                // Создание нового экземпляра класса представления для окна добавления товара
+                        var addProductViewModel = new AddProductVM(productsRepository);
+                // Установка представления данных окна добавления товара
+                        addProductWindow.DataContext = addProductViewModel;
+                // Открытие окна добавления товара
+                        addProductWindow.ShowDialog();
+                // После закрытия окна, обновится список товаров в AdminVM
+                        LoadCommand.Execute(null);
                     },
-                    predicate: () => true);
+                    predicate: () => true
+                );
             }
         }
+
+
+
+
 
         private MyCommand? deleteProductCommand;
         public ICommand DeleteProductCommand
@@ -87,13 +102,16 @@ namespace MyShopApp.ViewModels
                     {
                         if (SelectedProduct != null)
                         {
-                            // Удаление выбранного продукта из коллекции
+                    // Удаление выбранного продукта из базы данных
+                            productsRepository.Delete(SelectedProduct.Id);
+                    // Удаление выбранного продукта из коллекции
                             products.Remove(SelectedProduct);
                         }
                     },
                     predicate: () => SelectedProduct != null);
             }
         }
+
         public AdminVM(IMessenger messenger)
         {
             this.messenger = messenger;

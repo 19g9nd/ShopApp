@@ -23,7 +23,14 @@
         <DataTemplate DataType="{x:Type vm:AdminVM}">
             <v:AdminView/>
         </DataTemplate>
-        
 
+
+        <DataTemplate DataType="{x:Type vm:AddProductVM}">
+            <v:AddProductView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:OrderVM}">
+            <v:CheckoutView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

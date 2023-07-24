@@ -9,11 +9,11 @@ using MyShopApp.Services;
 
 #nullable disable
 
-namespace MyShopApp.Migrations
+namespace changes
 {
     [DbContext(typeof(DbContextcs))]
-    [Migration("20230617083911_Added new connection")]
-    partial class Addednewconnection
+    [Migration("20230723121949_applied")]
+    partial class applied
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace MyShopApp.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");

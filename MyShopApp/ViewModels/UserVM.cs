@@ -1,28 +1,63 @@
-﻿using ConsoleApp5.Classes;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Input;
+using ConsoleApp5.Classes;
 using MyShopApp.Classes;
 using MyShopApp.Commands;
 using MyShopApp.Messager.Messages;
 using MyShopApp.Messager.Services;
 using MyShopApp.Repositories;
 using MyShopApp.Services;
-using System.Collections.ObjectModel;
 
 namespace MyShopApp.ViewModels
 {
-    public class UserVM :VMBase
+    public class UserVM : VMBase
     {
-        private User? currentUser;
         private readonly DbContextcs context = new DbContextcs();
         private readonly IMessenger messenger;
         private readonly ProductRepository productsRepository;
-        private ObservableCollection<Product> products { get; set; } = new ObservableCollection<Product>();
+        private ObservableCollection<Product> cartProducts = new ObservableCollection<Product>();
+        private decimal totalOrderPrice;
 
-        public User? CurrentUser
+        public UserVM(IMessenger messenger)
+        {
+            this.messenger = messenger;
+            this.productsRepository = new ProductRepository(context);
+
+            this.messenger.Subscribe<SendLoginedUserMessage>(obj =>
+            {
+                if (obj is SendLoginedUserMessage message)
+                {
+                    this.CurrentUser = message.LoginedUser;
+                    OnPropertyChanged(nameof(CurrentUser));
+                    OnPropertyChanged(nameof(Balance));
+                }
+            });
+        }
+
+        private User currentUser;
+        public User CurrentUser
         {
             get { return currentUser; }
             set => base.PropertyChange(out currentUser, value);
         }
 
+        private decimal balance;
+        public decimal Balance
+        {
+            get => balance;
+            set
+            {
+                if (balance != value)
+                {
+                    balance = value;
+                    OnPropertyChanged(nameof(Balance));
+                    System.Console.WriteLine($"Balance is set to: {balance}");
+                }
+            }
+        }
+
+        private ObservableCollection<Product> products = new ObservableCollection<Product>();
         public ObservableCollection<Product> Products
         {
             get { return products; }
@@ -33,10 +68,98 @@ namespace MyShopApp.ViewModels
             }
         }
 
-        private MyCommand? AddToCartCommand { get; set; }
-        private MyCommand? CheckoutCommand { get; set; }
-        private MyCommand? loadCommand;
+        private Product selectedProduct;
+        public Product SelectedProduct
+        {
+            get { return selectedProduct; }
+            set => base.PropertyChange(out selectedProduct, value);
+        }
 
+        private ICommand addToCartCommand;
+        public ICommand AddToCartCommand
+        {
+            get
+            {
+                return addToCartCommand ??= new MyCommand(
+                    action: () =>
+                    {
+                        if (SelectedProduct != null)
+                        {
+                            CartProducts.Add(SelectedProduct);
+                            TotalOrderPrice += SelectedProduct.Price;
+                            Balance -= SelectedProduct.Price;
+                            System.Console.WriteLine($"{selectedProduct.Name} added to card");
+                        }
+                    },
+                    predicate: () => true
+                );
+            }
+        }
+
+        private ICommand deleteFromCartCommand;
+        public ICommand DeleteFromCartCommand
+        {
+            get
+            {
+                return deleteFromCartCommand ??= new MyCommand(
+                    action: () =>
+                    {
+                        if (SelectedProduct != null)
+                        {
+                            CartProducts.Remove(SelectedProduct);
+                            TotalOrderPrice -= SelectedProduct.Price;
+                            Balance += SelectedProduct.Price;
+                        }
+                    },
+                    predicate: () => SelectedProduct != null
+                );
+            }
+        }
+
+        private ICommand checkoutCommand;
+        public ICommand CheckoutCommand
+        {
+            get
+            {
+                return checkoutCommand ??= new MyCommand(
+                    action: () =>
+                    {
+                        if (CartProducts.Count > 0)
+                        {
+                            // Логика для оформления заказа
+                            // ...
+
+                            // После успешного оформления заказа, очистите корзину пользователя
+                            CartProducts.Clear();
+                            TotalOrderPrice = 0; // Сброс суммы заказа
+                        }
+                    },
+                    predicate: () => CartProducts.Count > 0
+                );
+            }
+        }
+
+        public ObservableCollection<Product> CartProducts
+        {
+            get { return cartProducts; }
+            set
+            {
+                cartProducts = value;
+                OnPropertyChanged(nameof(CartProducts));
+            }
+        }
+
+        public decimal TotalOrderPrice
+        {
+            get => totalOrderPrice;
+            set
+            {
+                totalOrderPrice = value;
+                OnPropertyChanged(nameof(TotalOrderPrice));
+            }
+        }
+
+        private MyCommand loadCommand;
         public MyCommand LoadCommand
         {
             get => this.loadCommand ??= new MyCommand(
@@ -52,58 +175,5 @@ namespace MyShopApp.ViewModels
                 predicate: () => true);
             set => base.PropertyChange(out this.loadCommand, value);
         }
-
-        public UserVM(IMessenger messenger)
-        {
-            this.messenger = messenger;
-            this.productsRepository = new ProductRepository(context);
-          
-          
-            this.messenger.Subscribe<SendLoginedUserMessage>(obj =>
-            {
-                if (obj is SendLoginedUserMessage message)
-                {
-                    this.CurrentUser = message.LoginedUser;
-                }
-            });
-        }
-
-       
-        private void AddToCartExecute(object parameter)
-        {
-            Product selectedProduct = parameter as Product;
-            if (selectedProduct != null)
-            {
-                // Логика добавления товара в корзину
-                // создание объекта OrderItem и добавление его в коллекцию корзины
-                // OrderItem orderItem = new OrderItem(selectedProduct);
-                // Order.Add(orderItem);
-            }
-        }
-
-        private bool CanAddToCartExecute(object parameter)
-        {
-
-            Product selectedProduct = parameter as Product;
-            if (selectedProduct != null)
-            {
-                // Проверка, может ли быть выполнена команда AddToCartCommand
-                // Например, проверка наличия товара в наличии или другие условия
-                // return selectedProduct.Availability > 0;
-            }
-            return false;
-        }
-
-        private void CheckoutExecute(object parameter)
-        {
-            // Логика оформления заказа
-            // Например, создание объекта Order, передача данных о корзине и текущем пользователе
-            // Order newOrder = new Order(Cart, CurrentUser);
-            // OrderService.PlaceOrder(newOrder);
-
-            // Очистка корзины после оформления заказа
-            // Order.Clear();
-        }
-
     }
 }

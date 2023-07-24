@@ -1,0 +1,45 @@
+﻿<Window x:Class="MyShopApp.Views.AddProductView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyShopApp.Views"
+        mc:Ignorable="d"
+        Title="AddProductView" Height="200" Width="400">
+    <Grid Margin="0,0,0,-16">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFB5ECFF"/>
+                <GradientStop Color="#FFFFD4D4" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Product Name:" Grid.Row="0" Grid.Column="0" Foreground="#FF960101"/>
+        <TextBox Text="{Binding NewProduct.Name}" Grid.Row="0" Grid.Column="1" Margin="5,5,5,36" Grid.RowSpan="2"/>
+
+        <Label Content="Description:" Grid.Row="1" Grid.Column="0" Margin="0,5" Foreground="#FF960101"/>
+        <TextBox Text="{Binding NewProduct.Description}" Grid.Row="1" Grid.Column="1" Margin="5"/>
+
+        <Label Content="Quantity:" Grid.Row="2" Grid.Column="0" Margin="0,5" Foreground="#FF960101"/>
+        <TextBox Text="{Binding NewProduct.Quantity}" Grid.Row="2" Grid.Column="1" Margin="5"/>
+        <Label Content="Price:" Grid.Row="3" Grid.Column="0" Margin="0,5" Foreground="#FF960101"/>
+        <TextBox Text="{Binding NewProduct.Price}" Grid.Row="3" Grid.Column="1" Margin="5"/>
+
+        <Button Content="Save" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="168,11,0,-38"
+                Command="{Binding SaveProductCommand}" Background="#FFFF7500" Foreground="White" Width="64"/>
+
+    </Grid>
+</Window>

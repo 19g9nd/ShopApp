@@ -9,13 +9,25 @@
     <Grid>
         <!-- Добавление и удаление товаров -->
         <StackPanel>
-            <Button Content="Add Product" Command="{Binding AddProductCommand}" Width="524"/>
+            <Button Content="Add Product" Command="{Binding  OpenAddProductWindowCommand}" Width="524"/>
             <Button Content="Delete Product" Command="{Binding DeleteProductCommand}" 
                     CommandParameter="{Binding SelectedProduct}" Width="527"/>
         </StackPanel>
 
         <!-- Отображение списка товаров -->
-        <ListBox ItemsSource="{Binding Products}" DisplayMemberPath="Name" 
-                 SelectedItem="{Binding SelectedProduct}" Margin="10,48,10,10"/>
+        <ListBox ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" Margin="10,48,10,10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Description}" FontStyle="Italic"/>
+                        <TextBlock Text="{Binding Quantity}"/>
+                        <TextBlock Text="{Binding Price}"/>
+                        <TextBlock Text="{Binding Status.Name}" Foreground="Blue"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
     </Grid>
 </UserControl>

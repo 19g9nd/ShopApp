@@ -14,7 +14,7 @@ namespace MyShopApp.Repositories
         }
 
 
-        public User Login(string login, string password)
+        public User Login(string login, string password,decimal? balance)
         {
             ArgumentNullException.ThrowIfNull(login, nameof(login));
             ArgumentNullException.ThrowIfNull(password, nameof(password));
